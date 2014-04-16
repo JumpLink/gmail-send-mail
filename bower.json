@@ -8,13 +8,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "jquery": "~2.1.0",
-    "knockout": "bowerjs/knockout#3.0.0",
-    "mousetrap": "~1.4.6"
-  },
-  "overrides": {
-    "mousetrap": {
-      "main": "mousetrap.min.js"
-    }
+    "angular": "1.2.*",
+    "bootstrap": "3.1.*",
+    "mgo-mousetrap": "https://github.com/mgonto/mgo-mousetrap.git#~0.1.2"
   }
 }

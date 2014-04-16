@@ -18,7 +18,7 @@ var imagemin = require('gulp-imagemin');
 var gulpGrunt = require('gulp-grunt');
 var autoprefixer = require('gulp-autoprefixer');
 var debug = require('gulp-debug');
-var getMainBowerFiles = require('gulp-bower-files');
+//var getMainBowerFiles = require('gulp-bower-files');
 var combinePipes = require('lazypipe');
 
 
@@ -53,7 +53,7 @@ paths.browser.styleEntryFile = paths.browser.stylesRoot + 'app.less';
 paths.browser.templatesRoot = paths.browser.root + 'templates/';
 paths.browser.templates = paths.browser.templatesRoot + '*.jade';
 paths.browser.templatePartials = paths.browser.templatesRoot + 'partials/*.jade';
-paths.browser.dependencies = paths.browser.root + 'third-party/**';
+//paths.browser.dependencies = paths.browser.root + 'third-party/**';
 
 // public
 paths.public.root = './_public/';
@@ -135,7 +135,7 @@ gulp.task('compile-watch', ['compile'], function(){
     gulp.watch([paths.background.scripts], ['background-scripts']);
 
     //browser
-    gulp.watch([paths.browser.dependencies], ['browser-dependencies']);
+    //gulp.watch([paths.browser.dependencies], ['browser-dependencies']);
     gulp.watch([paths.browser.fonts], ['fonts']);
     gulp.watch([paths.browser.images], ['images']);
     gulp.watch([paths.browser.appScripts], ['browser-scripts']);
@@ -172,7 +172,7 @@ gulp.task('background-scripts', function(){
  * Gulp tasks; tasks for the browser-side of the app
  * --------------------------------------------------------------------- */
 
-gulp.task('compile-browser', ['fonts', 'images', 'browser-scripts', 'styles', 'templates', 'browser-dependencies']);
+gulp.task('compile-browser', ['fonts', 'images', 'browser-scripts', 'styles', 'templates'/*, 'browser-dependencies'*/]);
 
 gulp.task('fonts', function(){
     gulp.src(paths.browser.fonts)
@@ -207,11 +207,11 @@ gulp.task('browser-scripts', function(){
         .pipe(gulp.dest(paths.public.browserScriptsRoot));
 });
 
-gulp.task('browser-dependencies', function(){
-    getMainBowerFiles()
-        .pipe(concat('third-party.js'))
-        .pipe(gulp.dest(paths.public.browserScriptsRoot));
-});
+// gulp.task('browser-dependencies', function(){
+//     getMainBowerFiles()
+//         .pipe(concat('third-party.js'))
+//         .pipe(gulp.dest(paths.public.browserScriptsRoot));
+// });
 
 gulp.task('templates', function(){
 
@@ -220,12 +220,4 @@ gulp.task('templates', function(){
             pretty: true
         }))
         .pipe(gulp.dest(paths.public.root));
-
-
-    gulp.src([paths.browser.templatePartials])
-        .pipe(jade({
-            client: true
-        }))
-        .pipe(concat('partials.js'))
-        .pipe(gulp.dest(paths.public.browserScriptsRoot));
 });

@@ -1,24 +1,25 @@
-WindowHandler = require './windowHandler'
-KeyCatcher = require './keyCatcher'
-Platform = require './platform'
-Notifier = require './notifier'
-KoViewsManager = require './koViewsManager'
+require("../third-party/angular/angular")
+require("../third-party/mgo-mousetrap/mousetrap")
+require("../third-party/mgo-mousetrap/wMousetrap")
 
-KoExample = require './koExample'
+controllers = require('./controllers')
+services = require('./services')
 
-global.app = {}
-global.app.platform = new Platform()
-global.app.windowHandler = new WindowHandler()
-global.app.keyCatcher = new KeyCatcher()
-global.app.notifier = new Notifier()
-global.app.koViewsManager = new KoViewsManager()
+console.log(services)
 
-$ =>
-    global.app.koViewsManager.register(new KoExample({}))
+global.app = angular.module('gmail-send-mail', ['mgo-mousetrap'])
 
-    $('body').addClass('platform-' + global.app.platform.getPlatform())
+global.app.service('PlatformService', services.PlatformService)
+global.app.service('WindowService', services.WindowService)
+global.app.service('GuiService', services.GuiService)
+global.app.controller('mainController', controllers.mainController)
 
-    $('#notification-trigger').on 'click', (e) ->
-        e.preventDefault()
-        global.app.notifier.notify 'Notification ' + new Date().getTime(), 'This is a notification', () ->
-            $('body').append('<p>Clicked on a notifcation!</p>')
+# WindowHandler = require './windowHandler'
+# Platform = require './platform'
+
+
+
+# global.app.platform = new Platform()
+# global.app.windowHandler = new WindowHandler()
+
+
