@@ -9,7 +9,8 @@
   "private": true,
   "dependencies": {
     "angular": "1.2.*",
-    "bootstrap": "3.1.*",
-    "mgo-mousetrap": "https://github.com/mgonto/mgo-mousetrap.git#~0.1.2"
+    "bootstrap": "latest",
+    "mgo-mousetrap": "https://github.com/mgonto/mgo-mousetrap.git#~0.1.2",
+    "todc-bootstrap": "https://github.com/todc/todc-bootstrap.git#master"
   }
 }

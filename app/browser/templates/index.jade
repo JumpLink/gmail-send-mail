@@ -7,7 +7,6 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
         meta(name='author', content='')
         title
         link(rel='stylesheet', href='css/app.css')
-        //- script(src='js/third-party.js')
         script(src='js/app.js')
   body(w-mousetrap="{'esc': showDevTools}")
     div
@@ -15,3 +14,4 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
       input(type='text', ng-model='yourName', placeholder='Enter a name here')
       hr
       h1 Hello {{yourName}}!
+      button.btn.btn-primary(type="button") Primary
