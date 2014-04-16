@@ -9,9 +9,50 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
         link(rel='stylesheet', href='css/app.css')
         script(src='js/app.js')
   body(w-mousetrap="{'esc': showDevTools}")
-    div
-      label Name:
-      input(type='text', ng-model='yourName', placeholder='Enter a name here')
-      hr
-      h1 Hello {{yourName}}!
-      button.btn.btn-primary(type="button") Primary
+    .panel.panel-default.panel-main()
+      .panel-heading
+        | New Message {{$root.headerWidth()}} x {{$root.headerHeight()}}
+      .panel-body(style="height: {{height - $root.headerHeight() - $root.footerHeight() - 3 }}px;")
+        .row
+          | To 
+        .row
+          | form
+        .row
+          | Subject
+        .row
+          | {{width}} x {{height}}
+          | {{$root.footerWidth()}} x {{$root.footerHeight()}}
+      .panel-footer
+        nav.navbar.navbar-toolbar.navbar-default.navbar-main(role='navigation')
+          .container-fluid
+            .navbar-header
+              button.navbar-toggle(type='button', data-toggle='collapse', data-target='.bs-example-toolbar-collapse-1')
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+              form.navbar-form.navbar-left(role='send')
+                button.btn.btn-primary(style="min-width: 72px", type='submit') Send
+            .collapse.navbar-collapse
+              form.navbar-form.navbar-left
+                button.btn.btn-default()
+                  i.fa.fa-font(style="font-style: italic;")
+              .divider
+              form.navbar-form.navbar-left
+                button.btn.btn-default()
+                  i.fa.fa-paperclip
+              form.navbar-form.navbar-left
+                button.btn.btn-default()
+                  i.fa.fa-plus
+              form.navbar-form.navbar-left(role='search')
+                .form-group
+                  input.form-control(type='text', placeholder='Search')
+                button.btn.btn-default(type='submit') Submit
+              .navbar-right
+                form.navbar-form.navbar-left
+                  button.btn.btn-default()
+                    i.fa.fa-trash-o
+                .divider
+                form.navbar-form.navbar-left
+                  button.btn.btn-default()
+                    b.caret

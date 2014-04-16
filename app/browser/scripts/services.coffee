@@ -126,6 +126,7 @@ exports.WindowService = (GuiService, PlatformService) ->
     exit = () ->
         GuiService.App.quit()
 
+
     isShown = false
     window = GuiService.Window.get()
 
@@ -140,4 +141,7 @@ exports.WindowService = (GuiService, PlatformService) ->
         , show: show
         , showDevTools: showDevTools
         , exit: exit
+        , width: window.width
+        , height: window.height
+        , Window: window
     }
