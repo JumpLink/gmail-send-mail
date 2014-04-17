@@ -9,10 +9,30 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
         link(rel='stylesheet', href='css/app.css')
         script(src='js/app.js')
   body(w-mousetrap="{'esc': showDevTools}")
-    .panel.panel-default.panel-main()
+    .panel.panel-default.panel-main
       .panel-heading
-        | New Message {{$root.headerWidth()}} x {{$root.headerHeight()}}
-      .panel-body(style="height: {{height - $root.headerHeight() - $root.footerHeight() - 3 }}px;")
+        nav.navbar.navbar-toolbar.navbar-inverse.navbar-main(role='navigation')
+          .container-fluid
+            .navbar-header
+              button.navbar-toggle(type='button', data-toggle='collapse')
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+              p.navbar-text
+                | New Message {{$root.headerWidth()}} x {{$root.headerHeight()}}
+            .collapse.navbar-collapse
+              .navbar-right
+                form.navbar-form.navbar-left
+                  button.btn.btn-primary.btn-trans
+                    i.fa.fa-minus
+                form.navbar-form.navbar-left
+                  button.btn.btn-primary.btn-trans
+                    i.fa.fa-expand
+                form.navbar-form.navbar-left
+                  button.btn.btn-primary.btn-trans
+                    i.fa.fa-times
+      .panel-body(style="height: {{height - $root.headerHeight() - $root.footerHeight() }}px;")
         .row
           | To 
         .row
@@ -31,28 +51,24 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
+            .collapse.navbar-collapse
               form.navbar-form.navbar-left(role='send')
                 button.btn.btn-primary(style="min-width: 72px", type='submit') Send
-            .collapse.navbar-collapse
               form.navbar-form.navbar-left
-                button.btn.btn-default()
+                button.btn.btn-default.btn-trans
                   i.fa.fa-font(style="font-style: italic;")
               .divider
               form.navbar-form.navbar-left
-                button.btn.btn-default()
+                button.btn.btn-default.btn-trans
                   i.fa.fa-paperclip
               form.navbar-form.navbar-left
-                button.btn.btn-default()
+                button.btn.btn-default.btn-trans
                   i.fa.fa-plus
-              form.navbar-form.navbar-left(role='search')
-                .form-group
-                  input.form-control(type='text', placeholder='Search')
-                button.btn.btn-default(type='submit') Submit
               .navbar-right
                 form.navbar-form.navbar-left
-                  button.btn.btn-default()
+                  button.btn.btn-default.btn-trans
                     i.fa.fa-trash-o
                 .divider
                 form.navbar-form.navbar-left
-                  button.btn.btn-default()
+                  button.btn.btn-default.btn-trans
                     b.caret
