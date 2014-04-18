@@ -1,7 +1,7 @@
 os = nequire 'os'
 
 # Public:
-exports.PlatformService = () ->
+exports.PlatformService = ($rootScope) ->
 
     isMac = () ->
         platformString = os.platform()
@@ -60,6 +60,13 @@ exports.PlatformService = () ->
                 return false
         return true # all was ok
 
+    $rootScope.platform = {
+        , name:  getPlatform()
+        , isMac: isMac()
+        , isLinux: isLinux()
+        , isWindows: isWindows()
+        , version:   getVersion()
+    }
 
     return {
         , isMac: isMac
@@ -73,7 +80,7 @@ exports.PlatformService = () ->
 exports.GuiService = () ->
     return nequire('nw.gui')
 
-exports.WindowService = (GuiService, PlatformService) ->
+exports.WindowService = (GuiService, $rootScope) ->
 
     attachEvents = () ->
         window.on 'close', onClose
@@ -86,35 +93,40 @@ exports.WindowService = (GuiService, PlatformService) ->
         #     .on 'click.WindowHandler', '.window-close', onClose
 
     onClose = () ->
-
-        if PlatformService.isLinux()
-            console.log("good bye, nice linux")
-
         exit()
 
     close = () ->
         window.close()
-        isShown = false
+        $rootScope.window.isShown = false
+        $rootScope.window.isMax = false
 
     hide = () ->
         window.hide()
-        isShown = false
+        $rootScope.window.isShown = false
 
     minimize = () ->
         window.minimize()
-        isShown = false
+        $rootScope.window.isShown = false
 
     maximize = () ->
         window.maximize()
-        $maximizeButton.addClass('hide')
-        $restoreButton.removeClass('hide')
-        isShown = true
+        $rootScope.window.isShown = true
+        $rootScope.window.isMax = true
+
+    unmaximize = () ->
+        window.unmaximize()
+        $rootScope.window.isShown = true
+        $rootScope.window.isMax = false
+
+    toggleMax = () ->
+        if($rootScope.window.isMax)
+            unmaximize()
+        else
+            maximize()
 
     restore = () ->
         window.restore()
-        $maximizeButton.removeClass('hide')
-        $restoreButton.addClass('hide')
-        isShown = true
+        $rootScope.window.isShown = true
 
     show = () ->
         window.show()
@@ -126,8 +138,11 @@ exports.WindowService = (GuiService, PlatformService) ->
     exit = () ->
         GuiService.App.quit()
 
+    $rootScope.window = {
+        , isShown:  false
+        , isMax: false
+    }
 
-    isShown = false
     window = GuiService.Window.get()
 
     attachEvents()
@@ -137,6 +152,8 @@ exports.WindowService = (GuiService, PlatformService) ->
         , close: close
         , hide: hide
         , minimize: minimize
+        , maximize: maximize
+        , toggleMax: toggleMax
         , restore: restore
         , show: show
         , showDevTools: showDevTools

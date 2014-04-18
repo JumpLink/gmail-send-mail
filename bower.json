@@ -9,9 +9,11 @@
   "private": true,
   "dependencies": {
     "angular": "1.2.*",
+    "angular-sanitize": "1.2.*",
     "bootstrap": "latest",
     "mgo-mousetrap": "https://github.com/mgonto/mgo-mousetrap.git#~0.1.2",
     "todc-bootstrap": "https://github.com/todc/todc-bootstrap.git#master",
-    "components-font-awesome": "4.0.*"
+    "components-font-awesome": "4.0.*",
+    "angular-strap": "~2.0.0"
   }
 }

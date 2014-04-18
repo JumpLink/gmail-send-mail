@@ -1,5 +1,11 @@
 .btn-invert {
-  .button-variant(#dd4b39; #d14836; @btn-danger-color; @btn-danger-border);
+  .button-variant(lighten(@window-header-color, 5%); @window-header-color; @btn-invert-color; @btn-invert-border);
+  color: white;
+  &:hover,
+  &:focus
+  {
+    color: white;
+  }
 }
 
 .btn-trans {
@@ -28,7 +34,17 @@
   }
 }
 
-.navbar-main {
+.btn-win {
+  border-color: transparent;
+  background: transparent;
+  &:hover,
+  &:focus {
+    background-color: #737373;
+    color: white;
+  }
+}
+
+.toolbar-gmail-send {
   .navbar-form {
     .btn {
       i.fa {

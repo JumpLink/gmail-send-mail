@@ -7,32 +7,51 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
         meta(name='author', content='')
         title
         link(rel='stylesheet', href='css/app.css')
+        //- templates
+        script(type="text/ng-template", id="partials/dropdown"): include partials/dropdown.jade
+        script(type="text/ng-template", id="partials/popover"): include partials/popover.jade
+        script(type="text/ng-template", id="partials/font-toolbar"): include partials/font-toolbar.jade
+        script(type="text/ng-template", id="partials/font-sans-serif"): include partials/font-sans-serif.jade
+        script(type="text/ng-template", id="partials/font-serif"): include partials/font-serif.jade
+        script(type="text/ng-template", id="partials/font-wide"): include partials/font-wide.jade
+        script(type="text/ng-template", id="partials/font-narrow"): include partials/font-narrow.jade
+        script(type="text/ng-template", id="partials/font-comic-sans-ms"): include partials/font-comic-sans-ms.jade
+        script(type="text/ng-template", id="partials/font-courier-new"): include partials/font-courier-new.jade
+        script(type="text/ng-template", id="partials/font-garamond"): include partials/font-garamond.jade
+        script(type="text/ng-template", id="partials/font-georgia"): include partials/font-georgia.jade
+        script(type="text/ng-template", id="partials/font-tahoma"): include partials/font-tahoma.jade
+        script(type="text/ng-template", id="partials/font-trebuchet-ms"): include partials/font-trebuchet-ms.jade
+        script(type="text/ng-template", id="partials/font-verdana"): include partials/font-verdana.jade
         script(src='js/app.js')
   body(w-mousetrap="{'esc': showDevTools}")
     .panel.panel-default.panel-main
       .panel-heading
-        nav.navbar.navbar-toolbar.navbar-inverse.navbar-main(role='navigation')
+        nav.navbar.navbar-toolbar.navbar-inverse.toolbar-gmail-send(role='navigation')
           .container-fluid
-            .navbar-header
-              button.navbar-toggle(type='button', data-toggle='collapse')
-                span.sr-only Toggle navigation
-                span.icon-bar
-                span.icon-bar
-                span.icon-bar
-              p.navbar-text
-                | New Message {{$root.headerWidth()}} x {{$root.headerHeight()}}
-            .collapse.navbar-collapse
-              .navbar-right
-                form.navbar-form.navbar-left
-                  button.btn.btn-primary.btn-trans
-                    i.fa.fa-minus
-                form.navbar-form.navbar-left
-                  button.btn.btn-primary.btn-trans
-                    i.fa.fa-expand
-                form.navbar-form.navbar-left
-                  button.btn.btn-primary.btn-trans
-                    i.fa.fa-times
-      .panel-body(style="height: {{height - $root.headerHeight() - $root.footerHeight() }}px;")
+            .row
+              .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse')
+                  span.sr-only Toggle navigation
+                  span.icon-bar
+                  span.icon-bar
+                  span.icon-bar
+                p.navbar-text
+                  | New Message {{$root.headerWidth}} x {{$root.headerHeight}}
+              .collapse.navbar-collapse
+                .navbar-right
+                  form.navbar-form.navbar-left
+                    button.btn.btn-invert(ng-click="config()")
+                      i.fa.fa-cog
+                  form.navbar-form.navbar-left
+                    button.btn.btn-win(ng-click="minimize()")
+                      i.fa.fa-minus
+                  form.navbar-form.navbar-left
+                    button.btn.btn-win(ng-click="toggleMax()")
+                      i.fa(ng-class="{'fa-expand': !$root.window.isMax, 'fa-compress': $root.window.isMax }")
+                  form.navbar-form.navbar-left
+                    button.btn.btn-win(ng-click="close()")
+                      i.fa.fa-times
+      .panel-body(style="height: {{height - $root.headerHeight - $root.footerHeight }}px;")
         .row
           | To 
         .row
@@ -41,34 +60,39 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
           | Subject
         .row
           | {{width}} x {{height}}
-          | {{$root.footerWidth()}} x {{$root.footerHeight()}}
+          | {{$root.footerWidth}} x {{$root.footerHeight}}
+          span(style="font-family:'times new roman', serif;")
+            | Serif
       .panel-footer
-        nav.navbar.navbar-toolbar.navbar-default.navbar-main(role='navigation')
+        nav.navbar.navbar-toolbar.toolbar-gmail-send(role='navigation')
           .container-fluid
-            .navbar-header
-              button.navbar-toggle(type='button', data-toggle='collapse', data-target='.bs-example-toolbar-collapse-1')
-                span.sr-only Toggle navigation
-                span.icon-bar
-                span.icon-bar
-                span.icon-bar
-            .collapse.navbar-collapse
-              form.navbar-form.navbar-left(role='send')
-                button.btn.btn-primary(style="min-width: 72px", type='submit') Send
-              form.navbar-form.navbar-left
-                button.btn.btn-default.btn-trans
-                  i.fa.fa-font(style="font-style: italic;")
-              .divider
-              form.navbar-form.navbar-left
-                button.btn.btn-default.btn-trans
-                  i.fa.fa-paperclip
-              form.navbar-form.navbar-left
-                button.btn.btn-default.btn-trans
-                  i.fa.fa-plus
-              .navbar-right
+            .row
+              .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.bs-example-toolbar-collapse-1')
+                  span.sr-only Toggle navigation
+                  span.icon-bar
+                  span.icon-bar
+                  span.icon-bar
+              .collapse.navbar-collapse
+                form.navbar-form.navbar-left(role='send')
+                  button.btn.btn-primary(style="min-width: 72px", type='submit') Send
+                form.navbar-form.navbar-left
+                  button.btn.btn-default.btn-trans.font-popover-button(data-container="body", data-template="partials/popover", data-placement="top-left", data-html='true', data-content-template="partials/font-toolbar", bs-popover)
+                    i.fa.fa-font
+                form.navbar-form.pull-left
+                  .divider
                 form.navbar-form.navbar-left
                   button.btn.btn-default.btn-trans
-                    i.fa.fa-trash-o
-                .divider
+                    i.fa.fa-paperclip
                 form.navbar-form.navbar-left
                   button.btn.btn-default.btn-trans
-                    b.caret
+                    i.fa.fa-plus
+                .navbar-right
+                  form.navbar-form.pull-left
+                    button.btn.btn-default.btn-trans
+                      i.fa.fa-trash-o
+                  form.navbar-form.pull-left
+                    .divider
+                  form.navbar-form.pull-left.dropdown-menu-right
+                    button.btn.btn-default.btn-trans.dropdown(type='button', data-template='partials/dropdown', data-html='true', data-placement='top', bs-dropdown='dropdown')
+                      b.caret
