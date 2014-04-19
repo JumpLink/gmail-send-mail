@@ -9,6 +9,9 @@ require("../third-party/angular-strap/dist/modules/tooltip")
 require("../third-party/angular-strap/dist/modules/dropdown")
 require("../third-party/angular-strap/dist/modules/popover")
 
+# just for experiments
+# require("/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/core.js")
+
 controllers = require('./controllers')
 services = require('./services')
 directives = require('./directives')
