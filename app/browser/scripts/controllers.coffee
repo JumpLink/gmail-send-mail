@@ -1,26 +1,72 @@
-exports.mainController = ($rootScope, $scope, WindowService) ->
+exports.mainController = ($rootScope, $scope, WindowService, $window) ->
     $scope.showDevTools = WindowService.showDevTools
+
+    $scope.width = WindowService.Window.width
+    $scope.height = WindowService.Window.height
 
     WindowService.Window.on 'resize', (width, height) ->
         $scope.width = width
         $scope.height = height
         $scope.$apply()
+        console.log('resize')
 
-    $scope.width = WindowService.Window.width
-    $scope.height = WindowService.Window.height
+    $scope.orightml = '<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li>Super Easy <b>Theming</b> Options</li><li style="color: green;">Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li class="text-danger">Doesn&apos;t Use an iFrame</li><li>Works with Firefox, Chrome, and IE8+</li></ol><p><b>Code at GitHub:</b> <a href="https://github.com/fraywing/textAngular">Here</a> </p>'
+    $scope.htmlcontent = $scope.orightml
 
 exports.PanelHeadingController = ($scope, $rootScope, $element, WindowService) ->
     $scope.close = WindowService.close
     $scope.toggleMax = WindowService.toggleMax
     $scope.minimize = WindowService.minimize
 
-    $rootScope.headerWidth = $element[0].offsetWidth
-    $rootScope.headerHeight = $element[0].offsetHeight
+    applyResize = () ->
+        $rootScope.headerWidth = $element[0].offsetWidth
+        $rootScope.headerHeight = $element[0].offsetHeight
+        $scope.$apply()
 
-exports.PanelFooterController = ($scope, $rootScope, $element, $templateCache, $sce) ->
+    WindowService.Window.on 'resize', (width, height) ->
+        applyResize()
 
-    $rootScope.footerWidth = $element[0].offsetWidth
-    $rootScope.footerHeight = $element[0].offsetHeight
+    WindowService.Window.on 'loaded', (width, height) ->
+        applyResize()
+
+exports.EMailSettingController = ($scope, $rootScope, $element, WindowService) ->
+
+    applyResize = () ->
+        $rootScope.settingWidth = $element[0].offsetWidth
+        $rootScope.settingHeight = $element[0].offsetHeight
+        $scope.$apply()
+
+    WindowService.Window.on 'resize', (width, height) ->
+        applyResize()
+
+    WindowService.Window.on 'loaded', (width, height) ->
+        applyResize()
+
+exports.EMailContentController = ($scope, $rootScope, $element, WindowService) ->
+
+    applyResize = () ->
+        $rootScope.contentWidth = $element[0].offsetWidth
+        $rootScope.contentHeight = $element[0].offsetHeight
+        $scope.$apply()
+
+    WindowService.Window.on 'resize', (width, height) ->
+        applyResize()
+
+    WindowService.Window.on 'loaded', (width, height) ->
+        applyResize()
+
+exports.PanelFooterController = ($scope, $rootScope, $element, WindowService, $templateCache, $sce) ->
+
+    applyResize = () ->
+        $rootScope.footerWidth = $element[0].offsetWidth
+        $rootScope.footerHeight = $element[0].offsetHeight
+        $scope.$apply()
+
+    WindowService.Window.on 'resize', (width, height) ->
+        applyResize()
+
+    WindowService.Window.on 'loaded', (width, height) ->
+        applyResize()
 
     $scope.dropdown = [
       {
@@ -39,47 +85,47 @@ exports.PanelFooterController = ($scope, $rootScope, $element, $templateCache, $
     $scope.fonts = [
 
       {
-        "text": "<i class=\"fa fa-check\"></i>&nbsp;"+$sce.trustAsHtml($templateCache.get('partials/font-sans-serif')),
-        "click": "$alert(\"Plain text mode.\")"
+        "label": $sce.trustAsHtml($templateCache.get('partials/font-sans-serif')),
+        "value": "sans-serif"
       },
       {
-        "text": $sce.trustAsHtml($templateCache.get('partials/font-serif')),
-        "click": "$alert(\"Holy guacamole!\")"
+        "label": $sce.trustAsHtml($templateCache.get('partials/font-serif')),
+        "value": "serif"
       },
       {
-        "text": $sce.trustAsHtml($templateCache.get('partials/font-wide')),
-        "click": "$alert(\"Holy guacamole!\")"
+        "label": $sce.trustAsHtml($templateCache.get('partials/font-wide')),
+        "value": "wide"
       },
       {
-        "text": $sce.trustAsHtml($templateCache.get('partials/font-narrow')),
-        "click": "$alert(\"Holy guacamole!\")"
+        "label": $sce.trustAsHtml($templateCache.get('partials/font-narrow')),
+        "value": "narrow"
       },
       {
-        "text": $sce.trustAsHtml($templateCache.get('partials/font-comic-sans-ms')),
-        "click": "$alert(\"Holy guacamole!\")"
+        "label": $sce.trustAsHtml($templateCache.get('partials/font-comic-sans-ms')),
+        "value": "comic-sans-ms"
       },
       {
-        "text": $sce.trustAsHtml($templateCache.get('partials/font-courier-new')),
-        "click": "$alert(\"Holy guacamole!\")"
+        "label": $sce.trustAsHtml($templateCache.get('partials/font-courier-new')),
+        "value": "courier-new"
       },
       {
-        "text": $sce.trustAsHtml($templateCache.get('partials/font-garamond')),
-        "click": "$alert(\"Holy guacamole!\")"
+        "label": $sce.trustAsHtml($templateCache.get('partials/font-garamond')),
+        "value": "garamond"
       },
       {
-        "text": $sce.trustAsHtml($templateCache.get('partials/font-georgia')),
-        "click": "$alert(\"Holy guacamole!\")"
+        "label": $sce.trustAsHtml($templateCache.get('partials/font-georgia')),
+        "value": "georgia"
       },
       {
-        "text": $sce.trustAsHtml($templateCache.get('partials/font-tahoma')),
-        "click": "$alert(\"Holy guacamole!\")"
+        "label": $sce.trustAsHtml($templateCache.get('partials/font-tahoma')),
+        "value": "tahoma"
       },
       {
-        "text": $sce.trustAsHtml($templateCache.get('partials/font-trebuchet-ms')),
-        "click": "$alert(\"Holy guacamole!\")"
+        "label": $sce.trustAsHtml($templateCache.get('partials/font-trebuchet-ms')),
+        "value": "trebuchet-ms"
       },
       {
-        "text": $sce.trustAsHtml($templateCache.get('partials/font-verdana')),
-        "click": "$alert(\"Holy guacamole!\")"
+        "label": $sce.trustAsHtml($templateCache.get('partials/font-verdana')),
+        "value": "verdana"
       }
     ]

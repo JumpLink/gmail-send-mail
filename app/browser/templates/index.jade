@@ -10,6 +10,7 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
         //- templates
         script(type="text/ng-template", id="partials/dropdown"): include partials/dropdown.jade
         script(type="text/ng-template", id="partials/popover"): include partials/popover.jade
+        script(type="text/ng-template", id="partials/select"): include partials/select.jade
         script(type="text/ng-template", id="partials/font-toolbar"): include partials/font-toolbar.jade
         script(type="text/ng-template", id="partials/font-sans-serif"): include partials/font-sans-serif.jade
         script(type="text/ng-template", id="partials/font-serif"): include partials/font-serif.jade
@@ -36,7 +37,7 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
                   span.icon-bar
                   span.icon-bar
                 p.navbar-text
-                  | New Message {{$root.headerWidth}} x {{$root.headerHeight}}
+                  | New Message [Header size: {{$root.headerWidth}} x {{$root.headerHeight}}]
               .collapse.navbar-collapse
                 .navbar-right
                   form.navbar-form.navbar-left
@@ -52,17 +53,21 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
                     button.btn.btn-win(ng-click="close()")
                       i.fa.fa-times
       .panel-body(style="height: {{height - $root.headerHeight - $root.footerHeight }}px;")
-        .row
-          | To 
-        .row
-          | form
-        .row
-          | Subject
-        .row
-          | {{width}} x {{height}}
-          | {{$root.footerWidth}} x {{$root.footerHeight}}
-          span(style="font-family:'times new roman', serif;")
-            | Serif
+        .e-mail-content
+          .row.e-mail-setting
+            .col-xs-12
+              div
+                | To [Total size: {{width}} x {{height}}]
+            .col-xs-12
+              div
+                | form [Footer size: {{$root.footerWidth}} x {{$root.footerHeight}}]
+            .col-xs-12
+              div
+                | Subject [E-Mail-Setting size: {{$root.settingWidth}} x {{$root.settingHeight}}]  [E-Mail-Content size: {{$root.contentWidth}} x {{$root.contentHeight}}] 
+          .e-mail-text(style="height: {{height - $root.headerHeight - $root.footerHeight - $root.settingHeight }}px;")
+            .row
+              .col-xs-12
+                div(text-angular="text-angular", name="htmlcontent", ng-model="htmlcontent", ta-text-editor-class="angulat-text-content", ta-target-toolbars='toolbar')
       .panel-footer
         nav.navbar.navbar-toolbar.toolbar-gmail-send(role='navigation')
           .container-fluid

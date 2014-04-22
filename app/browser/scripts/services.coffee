@@ -80,7 +80,13 @@ exports.PlatformService = ($rootScope) ->
 exports.GuiService = () ->
     return nequire('nw.gui')
 
-exports.WindowService = (GuiService, $rootScope) ->
+exports.WindowService = (GuiService, $rootScope, $timeout, $window) ->
+
+
+    tigger = (event) ->
+        $timeout () ->
+            # nything you want can go here and will safely be run on the next digest.
+            angular.element($window).triggerHandler(event)
 
     attachEvents = () ->
         window.on 'close', onClose
@@ -161,4 +167,5 @@ exports.WindowService = (GuiService, $rootScope) ->
         , width: window.width
         , height: window.height
         , Window: window
+        , tigger: tigger
     }

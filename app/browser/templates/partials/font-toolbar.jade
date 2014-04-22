@@ -2,9 +2,10 @@ nav.navbar.navbar-toolbar.toolbar-gmail-send(role='navigation')
   .container-fluid
     .row
       form.navbar-form.navbar-left
-        button.btn.btn-default.btn-trans.dropdown(type='button', data-template='partials/dropdown', data-html='true', data-placement='top', bs-dropdown='fonts')
-          span(ng-bind-html="fonts[0].text")
+        //- button.btn.btn-default.btn-trans.dropdown(type='button', data-template='partials/dropdown', data-html='true', data-placement='top', bs-dropdown='fonts')
+        //-   span(ng-bind-html="fonts[0].label")
           i.fa.fa-caret-up
+        button.btn.btn-default.btn-trans(type='button', ng-model='selectedFont', data-template='partials/select', data-html='true', data-placement='top', ng-options='font.value as font.label for font in fonts', bs-select='bs-select')
       form.navbar-form.pull-left
         .divider
       form.navbar-form.navbar-left

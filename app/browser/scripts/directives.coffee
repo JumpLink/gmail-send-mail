@@ -9,3 +9,15 @@ exports.PanelFooter = () ->
         restrict: "C"
         , controller: 'PanelFooterController'
     }
+
+exports.EMailSetting = () ->
+    return {
+        restrict: "C"
+        , controller: 'EMailSettingController'
+    }
+
+exports.EMailContent = () ->
+    return {
+        restrict: "C"
+        , controller: 'EMailContentController'
+    }
