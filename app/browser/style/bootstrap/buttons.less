@@ -11,6 +11,10 @@
 .btn-trans {
   border-color: transparent;
   background: transparent;
+  &[disabled] {
+    border-color: transparent;
+    background: transparent;
+  }
   &:hover {
     &.btn-primary {
       .button-variant(@brand-primary; #4787ed; @btn-primary-color; @btn-primary-border);

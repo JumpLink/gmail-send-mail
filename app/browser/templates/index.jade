@@ -10,6 +10,7 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
         //- templates
         script(type="text/ng-template", id="partials/dropdown"): include partials/dropdown.jade
         script(type="text/ng-template", id="partials/popover"): include partials/popover.jade
+        script(type="text/ng-template", id="partials/popover-font-toolbar"): include partials/popover-font-toolbar.jade
         script(type="text/ng-template", id="partials/select"): include partials/select.jade
         script(type="text/ng-template", id="partials/font-toolbar"): include partials/font-toolbar.jade
         script(type="text/ng-template", id="partials/font-sans-serif"): include partials/font-sans-serif.jade
@@ -82,7 +83,11 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
                 form.navbar-form.navbar-left(role='send')
                   button.btn.btn-primary(style="min-width: 72px", type='submit') Send
                 form.navbar-form.navbar-left
-                  button.btn.btn-default.btn-trans.font-popover-button(data-container="body", data-template="partials/popover", data-placement="top-left", data-html='true', data-content-template="partials/font-toolbar", bs-popover)
+                  //- TODO: use toolbar in this style
+                  //- button.btn.btn-default.btn-trans.font-popover-button(data-container="body", data-template="partials/popover", data-placement="top-left", data-html='true', data-content-template="partials/font-toolbar", bs-popover)
+                  //-   i.fa.fa-font
+                  //- WORKAROUND TextAngularToolbar, hast not exact the right style like gmail toolbar
+                  button.btn.btn-default.btn-trans.font-popover-button(ng-mouseenter="$root.showToolbar()", ng-mouseleave="$root.hideToolbar()")
                     i.fa.fa-font
                 form.navbar-form.pull-left
                   .divider
@@ -101,3 +106,4 @@ html(ng-app='gmail-send-mail', ng-controller="mainController")
                   form.navbar-form.pull-left.dropdown-menu-right
                     button.btn.btn-default.btn-trans.dropdown(type='button', data-template='partials/dropdown', data-html='true', data-placement='top', bs-dropdown='dropdown')
                       b.caret
+        ng-include(ng-show="$root._showToolbar", src="'partials/popover-font-toolbar'",  ng-mouseenter="$root.showToolbar()", ng-mouseleave="$root.hideToolbar()")
